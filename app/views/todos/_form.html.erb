@@ -1,0 +1,16 @@
+<div class="m-4">
+  <%= form_with(model: todo) do |form| %>
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name, class:"form-control" %>
+    </div>
+
+    <div>
+      <%= form.hidden_field :user_id, value:current_user.id %>
+    </div>
+    <br>
+    <div>
+      <%= form.submit class:"btn btn-primary"%>
+    </div>
+  <% end %>
+</div>

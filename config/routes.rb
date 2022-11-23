@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
+  resources :todo_items
+  resources :todos
+  devise_for :users 
 
-  get "/todos", to: "application#todos", as: "todos"
+  get "/mytodos", to: "application#my_todos", as: "my_todos"
+  get "/mytodos/:id/items", to: "application#my_todo_items", as: "my_todo_items"
+  get "/todo_item/:id/unmark", to: "application#unmark", as: "unmark_todo_item"
+  get "/todo_item/:id/mark", to: "application#mark", as: "mark_todo_item"
 
   root "application#index"
 end

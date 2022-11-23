@@ -1,0 +1,11 @@
+<div class="m-2 p-2">
+  <h1>Editing todo item</h1>
+
+  <%= render "form", todo_item: @todo_item %>
+
+  <br>
+
+  <div>
+    <%= link_to "Back to todo items", my_todo_items_url(id: @todo_item.todo_id), class:"btn btn-primary m-1" %>
+  </div>
+</div>

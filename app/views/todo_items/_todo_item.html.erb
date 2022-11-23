@@ -1,0 +1,21 @@
+<div id="<%= dom_id todo_item %>">
+  <p>
+    <strong>Name:</strong>
+    <%= todo_item.name %>
+  </p>
+
+  <p>
+    <strong>Todo:</strong>
+    <%= todo_item.todo.name %>
+  </p>
+
+  <p>
+    <strong>Done:</strong>
+    <%= if todo_item.done == 1 %> 
+      <span class="text-success">True</span>
+    <% else %>
+      <span class="text-danger">False</span>
+    <% end %>    
+  </p>
+
+</div>

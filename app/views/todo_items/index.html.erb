@@ -1,0 +1,14 @@
+<div class="m-2 p-2">
+  <h1>Todo items</h1>
+
+  <div id="todo_items">
+    <% @todo_items.each do |todo_item| %>
+      <%= render todo_item %>
+      <p>
+        <%= link_to "Show this todo item", todo_item, class:"btn btn-primary m-1" %>
+      </p>
+    <% end %>
+  </div>
+
+  <%= link_to "New todo item", new_todo_item_path, class:"btn btn-primary m-1" %>
+</div>
