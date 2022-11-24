@@ -1,18 +1,19 @@
-<%= form_with(model: todo_item) do |form| %>
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name, class:"form-control" %>
-  </div>
+  <%= form_with(model: todo_item, id: dom_id(todo_item)) do |form| %>
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name, class:"form-control" %>
+    </div>
 
-  <div>
-    <%= form.hidden_field :todo_id, value: @todo.id %>
-  </div>
+    <div>
+      <%= form.hidden_field :todo_id, value: @todo.id %>
+    </div>
 
-  <div>
-    <%= form.hidden_field :done, value: 0 %>
-  </div>
+    <div>
+      <%= form.hidden_field :done, value: 0 %>
+    </div>
 
-  <div>
-    <%= form.submit class:"btn btn-primary m-1" %>
-  </div>
-<% end %>
+    <div class="d-flex justify-content-between">
+      <%= form.submit class:"btn btn-primary m-1" %>
+      <%= link_to "Cancel", todo_item, class:"m-1" %>
+    </div>
+  <% end %> 

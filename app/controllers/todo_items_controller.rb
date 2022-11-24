@@ -24,13 +24,13 @@ class TodoItemsController < ApplicationController
         format.html { redirect_to my_todo_items_url(id: @todo_item.todo_id), notice: "Todo item was successfully created." }
         format.json { render :show, status: :created, location: @todo_item }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @todo_item.errors, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@todo_item, partial:"todo_items/form", locals: { todo_item: @todo_item }) }
+        flash[:danger] = "something went wrong"
+        redirect_to my_todo_items_url(@todo_item.todo_id)
       end
     end
   end
 
-  # PATCH/PUT /todo_items/1 or /todo_items/1.json
   def update
     respond_to do |format|
       if @todo_item.update(todo_item_params)
@@ -43,7 +43,6 @@ class TodoItemsController < ApplicationController
     end
   end
 
-  # DELETE /todo_items/1 or /todo_items/1.json
   def destroy
     @tmp = @todo_item.todo_id
     @todo_item.destroy
