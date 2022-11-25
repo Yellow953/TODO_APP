@@ -1,28 +1,29 @@
 <div class="m-4 p-4 card">
     <div class="card-header p-4 d-flex justify-content-between">
         <h2>My TODO List</h2>
-        <%= link_to "New todo", new_todo_path, class:"btn btn-primary m-1" %>
     </div>
 
-    <div id="my_todos">
-        <% current_user.todos.each do |todo| %>
-            <div class="card m-4 p-4">
-                <div id="<%= dom_id todo %>" class="d-flex justify-content-between">
-                    <div>
-                        <strong>Name:</strong>
-                        <%= link_to todo.name , my_todo_items_url(id: todo.id), class:"text-black text-decoration-none" %>
-                        <span class="btn btn-danger m-1 p-1 px-2">not started</span>
-                        <div class="text-secondary">
-                            0.0% completed (0/0 TODO Items)
-                        </div>
-                    </div>
-
-                    <div class="d-flex">
-                    <%= link_to "Edit", edit_todo_path(todo), class:"btn btn-warning m-3" %>
-                    <%= button_to "Delete", todo, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class:"btn btn-danger m-3" %>
-                    </div>
+   
+    <%= turbo_frame_tag "todo_form" do %>
+        <%= form_with(model: @todo) do |form| %>
+            <div class="row m-4">
+                <div class="col-10">
+                    <%= form.text_field :name, class:"form-control" %>
+                    <%= form.hidden_field :user_id, value:current_user.id %>
+                </div>
+                <div class="col-2">
+                    <%= form.submit class:"btn btn-primary"%>
                 </div>
             </div>
         <% end %>
+    <% end %>
+
+    <div id="my_todos">
+        <%= turbo_stream_from "todos" %>
+        <%= turbo_frame_tag "todos" do %>
+            <% current_user.todos.each do |todo| %>
+                <%= render todo %>
+            <% end %>
+        <% end %>    
     </div>
 </div>

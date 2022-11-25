@@ -1,9 +1,11 @@
 class ApplicationController < ActionController::Base
+    before_action :authenticate_user!, only: %i[ my_todos my_todo_items mark unmark ]
 
-    def index    
+    def index
     end
    
     def my_todos
+        @todo = Todo.new
     end
     
     def my_todo_items
@@ -28,6 +30,5 @@ class ApplicationController < ActionController::Base
         end
         redirect_to my_todo_items_url(id: @todo_item1.todo_id)
     end
-    
 
 end

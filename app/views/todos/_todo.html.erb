@@ -1,18 +1,15 @@
+<%= turbo_frame_tag dom_id(todo) do %>
 <div class="card m-4 p-4">
   <div id="<%= dom_id todo %>" class="d-flex justify-content-between">
     <div>
       <strong>Name:</strong>
-      <%= todo.name %>
-    </div>
-
-    <div class="text-secondary">
-      <strong>User:</strong>
-      <%= todo.user.email %>
+      <%= link_to todo.name, my_todo_items_url(todo), class: "text-black text-decoration-none" %>
     </div>
 
     <div class="d-flex">
-      <%= link_to "Edit", edit_todo_path(todo), class:"btn btn-warning m-1" %>
+      <%= link_to "Edit", edit_todo_url(todo), class:"btn btn-warning m-1" %>
       <%= button_to "Delete", todo, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class:"btn btn-danger m-1" %>
     </div>
   </div>
 </div>
+<% end %>

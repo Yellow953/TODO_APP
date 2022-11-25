@@ -1,5 +1,6 @@
 class TodoItemsController < ApplicationController
   before_action :set_todo_item, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: %i[ show edit update destroy ]
 
   def index
     @todo_items = TodoItem.all
@@ -54,12 +55,10 @@ class TodoItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_todo_item
       @todo_item = TodoItem.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def todo_item_params
       params.require(:todo_item).permit(:name, :todo_id, :done)
     end
