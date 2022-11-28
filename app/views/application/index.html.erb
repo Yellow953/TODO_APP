@@ -1,11 +1,11 @@
 <div class="m-5 p-5 bg-secondary text-center">
     <% if user_signed_in? %>
         Welcome <%= current_user.email %> to TODO App <br>
-        Let's get started <%= link_to "TODOS", my_todos_url, class:"btn btn-primary m-1" %> 
+        Let's get started <%= link_to "TODOS", my_todos_path, class:"btn btn-primary m-1" %> 
     <% else %>
         Please Sign in to use our app.<br>
         ( email: test@test.com password:qwe123 ) for testing<br>
-        <%= link_to "Login", new_user_session_url, class:"btn btn-primary m-1" %> or
-        <%= link_to "Register", new_user_registration_url, class:"btn btn-primary m-1" %>
+        <%= link_to "Login", new_user_session_path, class:"btn btn-primary m-1" %> or
+        <%= link_to "Register", new_user_registration_path, class:"btn btn-primary m-1" %>
     <% end %>
 </div>

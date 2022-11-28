@@ -5,7 +5,7 @@
 
   <div id="todos">
     <% @todos.each do |todo| %>
-      <%= link_to (render todo), root_url, class:"text-black text-decoration-none" %>
+      <%= link_to (render todo), root_path, class:"text-black text-decoration-none" %>
     <% end %>
   </div>
 </div>

@@ -1,6 +1,6 @@
 <header class="bg-secondary p-2">
     <nav class="navbar navbar-expand-lg">
-        <%= link_to "Home", root_url, class:"navbar-brand m-1" %>
+        <%= link_to "Home", root_path, class:"navbar-brand m-1" %>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,15 +9,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto d-flex justify-content-between w-100">
             <li class="nav-item active">
-                <%= link_to "Home", root_url, class:"nav-link m-1" %>
+                <%= link_to "Home", root_path, class:"nav-link m-1" %>
             </li>
             <li class="nav-item d-flex">
                 <% if !user_signed_in? %>
-                    <%= link_to "Login", new_user_session_url, class:"nav-link m-1" %>
-                    <%= link_to "Register", new_user_registration_url, class:"nav-link m-1" %>
+                    <%= link_to "Login", new_user_session_path, class:"nav-link m-1" %>
+                    <%= link_to "Register", new_user_registration_path, class:"nav-link m-1" %>
                 <% else %>
-                    <%= link_to "TODO", my_todos_url, class:"nav-link m-1" %>
-                    <%= button_to "Logout", destroy_user_session_url, method: :delete, class: "nav-link m-1 btn btn-secondary" %>
+                    <%= link_to "TODO", my_todos_path, class:"nav-link m-1" %>
+                    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link m-1 btn btn-secondary" %>
                 <% end %>
             </li>
         </ul>

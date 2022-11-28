@@ -20,6 +20,10 @@
         <% end %>
     <% end %>
 
+     <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: <%= (@x*100)/@y %>%" aria-valuenow="<%= ((@todo.todo_items.where(done: 1).count)*100)/(@todo.todo_items.count) %>" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
     <div id="my_todos_items">
         <%= turbo_stream_from "todo_items" %>
         <%= turbo_frame_tag "todo_items" do %>
