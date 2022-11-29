@@ -3,27 +3,17 @@
         <h2><%= @todo.name %></h2>
         <%= link_to "Back", my_todos_path, class:"btn btn-secondary m-1" %>
     </div>
-
+    
+    <br>
     <%= turbo_frame_tag "todo_item_form" do %>
-        <%= form_with(model: @todo_item) do |form| %>
-            <div class="row m-4">
-                <div class="col-10">
-                    <%= form.text_field :name, class:"form-control" %>
-                    <%= form.hidden_field :todo_id, value: @todo.id %>
-                    <%= form.hidden_field :done, value: 0 %>
-                </div>
-
-                <div class="col-2">
-                    <%= form.submit class:"btn btn-primary" %>
-                </div>
-            </div>
-        <% end %>
+        <%= render "todo_items/form", todo_item: @todo_item, todo: @todo %>
     <% end %>
+    <br>
 
-     <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: <%= (@x*100)/@y %>%" aria-valuenow="<%= ((@todo.todo_items.where(done: 1).count)*100)/(@todo.todo_items.count) %>" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-
+    <% if @todo.todo_items.count != 0 %>
+       <%= render "layouts/bar", x: @x, y: @y %>
+    <% end %>
+    
     <div id="my_todos_items">
         <%= turbo_stream_from "todo_items" %>
         <%= turbo_frame_tag "todo_items" do %>

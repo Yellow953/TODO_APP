@@ -22,12 +22,11 @@ class TodoItemsController < ApplicationController
 
     respond_to do |format|
       if @todo_item.save
-        format.html { redirect_to my_todo_items_url(id: @todo_item.todo_id), notice: "Todo item was successfully created." }
-        format.json { render :show, status: :created, location: @todo_item }
+        format.turbo_stream
+        format.html { redirect_to my_todo_items_path(@todo_item.todo), notice: "Todo Item was successfully created." }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@todo_item, partial:"todo_items/form", locals: { todo_item: @todo_item }) }
-        flash[:danger] = "something went wrong"
-        redirect_to my_todo_items_url(@todo_item.todo_id)
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@todo_item)}_form", partial: "form", locals: { todo_item: @todo_item }) }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
@@ -35,25 +34,23 @@ class TodoItemsController < ApplicationController
   def update
     respond_to do |format|
       if @todo_item.update(todo_item_params)
-        format.html { redirect_to my_todo_items_url(id: @todo_item.todo_id), notice: "Todo item was successfully updated." }
-        format.json { render :show, status: :ok, location: @todo_item }
+        format.html { redirect_to my_todo_items_path(@todo_item.todo), notice: "Todo Item was successfully updated." }
       else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@todo_item)}_form", partial: "form", locals: { todo_item: @todo_item }) }
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @todo_item.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @tmp = @todo_item.todo_id
     @todo_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to my_todo_items_url(id: @tmp), notice: "Todo item was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove("#{helpers.dom_id(@todo_item)}") }
+      format.html { redirect_to my_todo_items_path(@todo_item.todo), notice: "Todo Item was successfully destroyed." }
     end
   end
-
+    
   private
     def set_todo_item
       @todo_item = TodoItem.find(params[:id])

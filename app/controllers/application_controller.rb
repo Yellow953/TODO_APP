@@ -18,25 +18,24 @@ class ApplicationController < ActionController::Base
     def mark
         @todo_item1 = TodoItem.find(params[:id])
         @todo_item1.done = 1
-        if @todo_item1.save
-            flash[:success] = "Todo Item Done"
+        
+        respond_to do |format|
+            if @todo_item1.save
+                format.turbo_stream { render turbo_stream: turbo_stream.replace("bar", partial: "layouts/bar", locals: { x: @todo_item1.todo.todo_items.where(done: 1).count, y: @todo_item1.todo.todo_items.count }) }
+                format.html { redirect_to my_todo_items_path(@todo_item1.todo), success: "Done." }
+            end
         end
-        @todo = @todo_item1.todo
-        @x = @todo.todo_items.where(done: 1).count
-        @y = @todo.todo_items.count
-        redirect_to my_todo_items_path(@todo.id)
     end
     
     def unmark
         @todo_item1 = TodoItem.find(params[:id])
         @todo_item1.done = 0
-        if @todo_item1.save
-            flash[:success] = "Todo Item Undone"
+        respond_to do |format|
+            if @todo_item1.save
+                format.turbo_stream { render turbo_stream: turbo_stream.replace("bar", partial: "layouts/bar", locals: { x: @todo_item1.todo.todo_items.where(done: 1).count, y: @todo_item1.todo.todo_items.count }) }
+                format.html { redirect_to my_todo_items_path(@todo_item1.todo), success: "Undone." }
+            end
         end
-        @todo = @todo_item1.todo
-        @x = @todo.todo_items.where(done: 1).count
-        @y = @todo.todo_items.count
-        redirect_to my_todo_items_path(@todo.id)
     end
 
 end

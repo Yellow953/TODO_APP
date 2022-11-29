@@ -5,17 +5,7 @@
 
    
     <%= turbo_frame_tag "todo_form" do %>
-        <%= form_with(model: @todo) do |form| %>
-            <div class="row m-4">
-                <div class="col-10">
-                    <%= form.text_field :name, class:"form-control" %>
-                    <%= form.hidden_field :user_id, value:current_user.id %>
-                </div>
-                <div class="col-2">
-                    <%= form.submit class:"btn btn-primary"%>
-                </div>
-            </div>
-        <% end %>
+        <%= render "todos/form" ,todo: @todo %>
     <% end %>
 
     <div id="my_todos">

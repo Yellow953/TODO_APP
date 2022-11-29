@@ -1,11 +1,12 @@
-<div class="m-4 p-4">
-  <h1>Todo List</h1>
+<div class="mx-auto mt-4">
+  <div class="mb-6">
+    <h1 class="font-bold">Todo</h1>
+  </div>
 
-  <%= link_to "New todo", new_todo_path, class:"btn btn-primary m-1" %>
+  <%= render "form", todo: Todo.new %>
 
-  <div id="todos">
-    <% @todos.each do |todo| %>
-      <%= link_to (render todo), root_path, class:"text-black text-decoration-none" %>
-    <% end %>
+  <%= turbo_stream_from "todos" %>
+  <div id="todos" class="m-2">
+    <%= render @todos %>
   </div>
 </div>

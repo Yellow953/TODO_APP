@@ -16,7 +16,7 @@
                     <%= link_to "Login", new_user_session_path, class:"nav-link m-1" %>
                     <%= link_to "Register", new_user_registration_path, class:"nav-link m-1" %>
                 <% else %>
-                    <%= link_to "TODO", my_todos_path, class:"nav-link m-1" %>
+                    <%= link_to "TODOS", my_todos_path, class:"nav-link m-1" %>
                     <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link m-1 btn btn-secondary" %>
                 <% end %>
             </li>

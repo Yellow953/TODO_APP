@@ -1,5 +1,5 @@
-<%= turbo_frame_tag dom_id(todo_item) do %>
-  <div id="<%= dom_id todo_item %>" class="card m-4 p-2">
+<div id="<%= "#{dom_id(todo_item)}" %>" class="card m-4 p-2">
+  <%= turbo_frame_tag dom_id(todo_item) do %>
     <div class="d-flex justify-content-between">
       <%  if todo_item.done == 1 %>
         <div class="text-success">
@@ -12,13 +12,13 @@
 
       <div class="d-flex">
         <% if todo_item.done == 0 %>
-          <%= link_to "Mark", mark_todo_item_path(id: todo_item.id), class:"btn btn-success m-1" %>
+          <%= button_to "Mark", mark_todo_item_path(id: todo_item.id), method: :patch, class:"btn btn-success m-1" %>
         <% else %>
-          <%= link_to "UnMark", unmark_todo_item_path(id: todo_item.id), class:"btn btn-danger m-1" %>
+          <%= button_to "UnMark", unmark_todo_item_path(id: todo_item.id),method: :patch, class:"btn btn-danger m-1" %>
         <% end %>
         <%= link_to "Edit", edit_todo_item_path(todo_item), class:"btn btn-warning m-1" %>
         <%= button_to "Delete", todo_item, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class:"btn btn-danger m-1" %>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>  
